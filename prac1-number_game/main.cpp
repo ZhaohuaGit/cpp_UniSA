@@ -3,52 +3,46 @@
 
 using namespace std;
 
-//Version one stop at cannot control enter num and with 0-9
-//One function ONLY response one function
+//Restrict input to only one character
+bool input_oneLetter_oneLine(string letter) {
+    getline(cin, letter);
+
+    while(letter.length() != 1) {
+        cin.clear();
+        cout << "Pls enter ONLY one letter for each line: ";
+        getline(cin, letter);
+    }
+
+    return true;
+};
+
+//Judge input Y and N
+char input_Y_N(string letter) {
+    bool oneLetter = input_oneLetter_oneLine(letter);
+    while (oneLetter) {
+        while((tolower(letter[0]) != 'y') and (tolower(letter[0])!= 'n')) {
+            cin.clear();
+            cout << "Pls enter ONLY Y/y OR N/n : ";
+            getline(cin, letter);
+        }
+        break;
+    }
+
+    return tolower(letter[0]);
+}
+
 int main()
 {
     cout << "Welcome!" << endl;
     cout << "Do you want to play the game? Y/N" << endl;
 
-/* 无法限制只输入一个字符
-
-    char input_play;
-
-//    cin.get(input_play);
-//    cin >> input_play;
-//    cin.getline(input_play);
-//    getline(cin,input_play);
-
-    while((tolower(input_play) != 'y') or (tolower(input_play)!= 'n')) {
-        cout << "Pls Enter Again!" << endl;
-        cin.clear();
-        cin.get(input_play);
-    }
-    cout << input_play;
-*/
-
-    string input_play_string;
-    getline(cin, input_play_string);
-
     //play game?
-    while (true) {
-        //    while((tolower(input_play_string) != 'y') or (tolower(input_play_string)!= 'n')) //string不能用tolower
-        while (input_play_string.length() != 1) {
-            cin.clear();
-            cout << "Pls Enter Again: ";
-            getline(cin, input_play_string);
-        }
-
-        while((tolower(input_play_string[0]) != 'y') and (tolower(input_play_string[0])!= 'n')) {
-            //用and不是or
-            cin.clear();
-            cout << "Pls Enter Again2: ";
-            getline(cin, input_play_string);
-        }
-        break;
-    }
-    char input_play_char = input_play_string[0];
-    cout << "Enjoy the game!\n" << endl;
+    string play_game;
+    cin >> play_game;
+    play_game = input_Y_N(play_game);
+    if (play_game == "y") {
+        cout << "Enjoy the game!\n" << endl;
+    } else {return 0;}
 
     //generate random-num
     int result = 0;
